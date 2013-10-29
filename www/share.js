@@ -15,14 +15,9 @@ Share.prototype = {
     /**
      * Open the Android share dialog.
      */
-	show: function (message, win, fail) {
-		var types = ["image/jpeg", "image/gif", "image/png", "image/bmp"];
-		if (types.join("|").indexOf(message.mimeType) < 0) {
-			return false;
-		}
-		cordova.exec(win, fail, 'Share', 'show', [{subject: message.subject, text: message.text, imagePath: message.imagePath, mimeType: message.mimeType}]);
+	show: function (content, success, fail) {
+        return cordova.exec( function(args) { success(args); }, function(args) { fail(args); }, 'Share', '', [content]);
 	}
-		   
 };
 
 var share = new Share();
